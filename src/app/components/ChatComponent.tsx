@@ -60,6 +60,44 @@ const ChatComponent = () => {
         }
         return "Transaction failed: Unknown error occurred";
       }
+    } else if (functionCall.name === "create_solana_swap") {
+      if (!wallet.connected || !wallet.signTransaction || !wallet.publicKey) {
+        return "Please connect your wallet first";
+      }
+
+      try {
+        const { transaction, connection } = await LexiconSDK.createSolanaSwapTransaction(
+          functionCall.arguments.input_mint,
+          functionCall.arguments.output_mint,
+          functionCall.arguments.amount,
+          functionCall.arguments.slippage_bps,
+          wallet.publicKey
+        );
+
+        // Sign the transaction
+        const signedTx = await wallet.signTransaction(transaction);
+
+        // Send the transaction
+        const signature = await connection.sendRawTransaction(
+          signedTx.serialize()
+        );
+
+        // Wait for confirmation
+        const latestBlockhash = await connection.getLatestBlockhash();
+        await connection.confirmTransaction({
+          signature,
+          blockhash: latestBlockhash.blockhash,
+          lastValidBlockHeight: latestBlockhash.lastValidBlockHeight,
+        });
+
+        return `Swap successful! Signature: ${signature}`;
+      } catch (error: unknown) {
+        console.error("Swap error:", error);
+        if (error instanceof Error) {
+          return `Swap failed: ${error.message}`;
+        }
+        return "Swap failed: Unknown error occurred";
+      }
     }
     return null;
   };

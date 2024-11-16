@@ -1,6 +1,7 @@
 // src/app/api/startChat/route.ts
 import type { NextRequest } from "next/server";
 import { startChat } from "@/app/backend/startChat";
+import { exportPages } from "next/dist/export/worker";
 
 export async function POST(req: NextRequest) {
   const { userInput } = await req.json();

@@ -14,6 +14,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.95.4",
+    "cross-fetch": "^4.0.0",
     "next": "15.0.3",
     "openai": "^4.72.0",
     "pino-pretty": "^13.0.0",
