@@ -1,10 +1,7 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/app/components/ChatComponent.tsx
 import { useState } from "react";
 import { LexiconSDK } from "lexicon-sdk-mvp";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { create_solana_transaction } from "../utils/solanaTransactions";
 import LoadingSpinner from "./LoadingSpinner";
 
 interface Message {
@@ -33,7 +30,7 @@ const ChatComponent = () => {
       }
 
       try {
-        const { transaction, connection } = await create_solana_transaction(
+        const { transaction, connection } = await LexiconSDK.createSolanaTransaction(
           functionCall.arguments.recipient_wallet,
           functionCall.arguments.amount_sol,
           wallet.publicKey
