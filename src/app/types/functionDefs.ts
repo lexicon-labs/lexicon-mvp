@@ -49,4 +49,21 @@ export const tools = [
       additionalProperties: false,
     },
   },
+  {
+    name: "show_chart",
+    description:
+      "Generates an iframe to display a Dexscreener chart for a specified token mint address.",
+    strict: true,
+    parameters: {
+      type: "object",
+      required: ["mint_address"],
+      properties: {
+        mint_address: {
+          type: "string",
+          description: "The mint address of the token.",
+        },
+      },
+      additionalProperties: false,
+    },
+  },
 ];

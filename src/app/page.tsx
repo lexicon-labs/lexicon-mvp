@@ -37,7 +37,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-white/10 group-hover:animate-shimmer" />
         </button>
       ) : (
-        <div className="w-full max-w-4xl animate-fade-in">
+        <div className="w-full max-w-8xl animate-fade-in">
           <ChatComponent />
         </div>
       )}
