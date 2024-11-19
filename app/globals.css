@@ -156,3 +156,24 @@ body {
   color: white !important;
   background: #2a2a2a !important;
 }
+
+.iframe-chat {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 700px;
+  border: none;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* For smaller screens */
+@media (max-width: 640px) {
+  .iframe-chat {
+    width: 100%;
+    height: 100%;
+    bottom: 0;
+    right: 0;
+  }
+}

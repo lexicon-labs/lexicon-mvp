@@ -15,9 +15,10 @@ import { ChatConfig, ChatComponentProps } from "../types/types";
 
 const ChatComponent: React.FC<ChatComponentProps> = ({
   configId = "default",
+  defaultOpen = false,
 }) => {
   const wallet = useWallet();
-  const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
+  const [isChatOpen, setIsChatOpen] = useState<boolean>(defaultOpen);
   const [chatHistory, setChatHistory] = useState<FrontendMessage[]>([]);
   const [userInput, setUserInput] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -120,9 +121,9 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
   };
 
   return (
-    <div className="w-full max-w-4xl">
+    <div className="fixed bottom-5 right-5 z-[1000] w-[350px]">
       {!isChatOpen ? (
-        <div className="flex justify-center">
+        <div className="flex justify-end">
           <button
             onClick={() => setIsChatOpen(true)}
             className="group relative flex items-center gap-3 px-6 py-3 bg-black hover:bg-black/90 text-white rounded-full overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
@@ -137,7 +138,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
           </button>
         </div>
       ) : (
-        <div className="w-full h-[700px] flex flex-col bg-gradient-to-b from-black to-[#0a0a0a] rounded-3xl overflow-hidden border border-gray-800/50 shadow-2xl">
+        <div className="w-full h-[600px] flex flex-col bg-gradient-to-b from-black to-[#0a0a0a] rounded-3xl overflow-hidden border border-gray-800/50 shadow-2xl">
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 bg-black/90 border-b border-gray-800/50">
             <div className="flex items-center gap-3">

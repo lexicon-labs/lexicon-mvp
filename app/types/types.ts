@@ -40,4 +40,5 @@ export interface ChatConfig {
 
 export interface ChatComponentProps {
   configId?: string; // e.g., 'netflix', 'default', etc.
+  defaultOpen?: boolean;
 }
