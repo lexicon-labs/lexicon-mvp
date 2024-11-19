@@ -121,7 +121,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-[1000] w-[350px]">
+    <div className="w-full h-full">
       {!isChatOpen ? (
         <div className="flex justify-end">
           <button
@@ -138,7 +138,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({
           </button>
         </div>
       ) : (
-        <div className="w-full h-[600px] flex flex-col bg-gradient-to-b from-black to-[#0a0a0a] rounded-3xl overflow-hidden border border-gray-800/50 shadow-2xl">
+        <div className="w-full h-full flex flex-col bg-gradient-to-b from-black to-[#0a0a0a] rounded-3xl overflow-hidden border border-gray-800/50 shadow-2xl">
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 bg-black/90 border-b border-gray-800/50">
             <div className="flex items-center gap-3">
