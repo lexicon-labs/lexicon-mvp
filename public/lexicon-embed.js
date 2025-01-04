@@ -39,7 +39,6 @@
     iframe.setAttribute('aria-label', 'Chat with Lexicon AI Assistant');
     iframe.setAttribute('allowtransparency', 'true');
     iframe.setAttribute('allow', 'clipboard-write; encrypted-media');
-    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation');
     
     const script = document.currentScript;
     const configId = script?.getAttribute('data-config-id') || 'default';
