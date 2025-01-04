@@ -7,7 +7,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "frame-ancestors 'self' https://lexicon-agent-demo.netlify.app"
+            value: "frame-ancestors 'self' https://lexicon-landing.pages.dev"
           },
           {
             key: 'X-Frame-Options',
