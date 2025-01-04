@@ -27,7 +27,7 @@ MONGODB_URI=your_mongodb_uri
 MONGODB_DB=your_database_name
 
 # Required: Your app's URL
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=https://lexicon-landing.pages.dev/
 
 # Optional: Helius endpoint for DAS APIs
 NEXT_PUBLIC_HELIUS_API_KEY=your_helius_api_key
@@ -53,7 +53,7 @@ yarn dev
 pnpm dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000) to see the demo app.
+4. Open [https://lexicon-landing.pages.dev/](https://lexicon-landing.pages.dev/) to see the demo app.
 
 ## Integration Guide
 

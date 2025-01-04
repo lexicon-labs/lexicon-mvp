@@ -42,7 +42,7 @@
     const script = document.currentScript;
     const configId = script?.getAttribute('data-config-id') || 'default';
     
-    iframe.src = `http://localhost:3000/chat-widget?configId=${configId}`;
+    iframe.src = `https://lexicon-landing.pages.dev//chat-widget?configId=${configId}`;
     
     // Add container to DOM
     container.appendChild(iframe);
@@ -70,7 +70,7 @@
     // Improved resize handling with debouncing
     let resizeTimeout;
     window.addEventListener('message', (event) => {
-      if (event.origin !== 'http://localhost:3000') return;
+      if (event.origin !== 'https://lexicon-landing.pages.dev/') return;
       
       if (event.data.type === 'resize') {
         clearTimeout(resizeTimeout);

@@ -7,11 +7,11 @@ const nextConfig = {
         headers: [
           {
             key: 'Content-Security-Policy',
-            value: "frame-ancestors 'self' http://localhost:3000"
+            value: "frame-ancestors 'self' https://lexicon-landing.pages.dev/"
           },
           {
             key: 'X-Frame-Options',
-            value: 'ALLOW-FROM http://localhost:3000'
+            value: 'ALLOW-FROM https://lexicon-landing.pages.dev/'
           }
         ]
       }
