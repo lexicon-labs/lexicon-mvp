@@ -19,7 +19,15 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; frame-ancestors 'self' https://lexicon-landing.pages.dev https://lexicon-agent-demo.netlify.app; script-src 'self' 'unsafe-inline' 'unsafe-eval';"
+            value: [
+              "default-src 'self'",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' https://fonts.gstatic.com",
+              "frame-ancestors 'self' https://lexicon-landing.pages.dev https://lexicon-agent-demo.netlify.app",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+              "img-src 'self' data: https:",
+              "connect-src 'self' https:"
+            ].join('; ')
           }
         ]
       },
