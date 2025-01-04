@@ -70,7 +70,6 @@
     // Improved resize handling with debouncing
     let resizeTimeout;
     window.addEventListener('message', (event) => {
-      if (event.origin !== 'https://lexicon-landing.pages.dev') return;
       
       if (event.data.type === 'resize') {
         clearTimeout(resizeTimeout);
