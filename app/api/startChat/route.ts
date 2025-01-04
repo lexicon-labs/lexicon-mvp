@@ -5,7 +5,7 @@ import { startChat } from "./startChat";
 const validateOrigin = (request: NextRequest) => {
   const origin = request.headers.get("origin");
   // Only allow requests from our own domain
-  const allowedOrigins = ["https://lexicon-landing.pages.dev/", "https://lexicon.chat"];
+  const allowedOrigins = ["https://lexicon-landing.pages.dev", "https://lexicon.chat"];
   return allowedOrigins.includes(origin || "");
 };
 
