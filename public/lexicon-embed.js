@@ -28,16 +28,18 @@
       background: 'transparent',
       overflow: 'hidden',
       transition: 'width 0.3s ease, height 0.3s ease',
-      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)'
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+      backgroundColor: 'transparent'
     };
     
     Object.assign(container.style, containerStyles);
     Object.assign(iframe.style, iframeStyles);
     
-    // Add accessibility attributes
+    // Add accessibility and security attributes
     iframe.setAttribute('title', 'Lexicon AI Chat Widget');
     iframe.setAttribute('aria-label', 'Chat with Lexicon AI Assistant');
     iframe.setAttribute('allowtransparency', 'true');
+    iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-forms allow-popups');
     
     const script = document.currentScript;
     const configId = script?.getAttribute('data-config-id') || 'default';
@@ -48,24 +50,7 @@
     container.appendChild(iframe);
     document.body.appendChild(container);
     
-    // Handle iframe load
-    iframe.onload = () => {
-      try {
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
-        if (iframeDoc) {
-          const rootStyles = {
-            background: 'transparent',
-            margin: '0',
-            padding: '0'
-          };
-          
-          Object.assign(iframeDoc.documentElement.style, rootStyles);
-          Object.assign(iframeDoc.body.style, rootStyles);
-        }
-      } catch (e) {
-        console.warn('Could not access iframe document:', e);
-      }
-    };
+    // Remove the iframe.onload handler completely
     
     // Improved resize handling with debouncing
     let resizeTimeout;
