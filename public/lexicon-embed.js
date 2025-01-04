@@ -42,7 +42,7 @@
     const script = document.currentScript;
     const configId = script?.getAttribute('data-config-id') || 'default';
     
-    iframe.src = `https://lexicon-landing.pages.dev/chat-widget?configId=${configId}`;
+    iframe.src = `https://lexicon-agent-demo.netlify.app/chat-widget?configId=${configId}`;
     
     // Add container to DOM
     container.appendChild(iframe);
@@ -107,4 +107,4 @@
   } else {
     window.addEventListener('load', createWidget);
   }
-})(); 
+})();
