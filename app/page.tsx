@@ -21,9 +21,9 @@ export default function Home() {
 
         <div className="space-y-6 animate-fade-in-up">
           <h1 className="text-5xl lg:text-7xl font-bold text-black">
-            Lexicon{" "}
+            Lexicon:{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-600 animate-gradient bg-[length:200%_auto]">
-              Framework
+              Framework Demo
             </span>
           </h1>
           <p className="text-gray-600 max-w-xl mx-auto text-lg lg:text-xl font-light space-y-4">
