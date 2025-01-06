@@ -33,6 +33,55 @@ const LexiconPopup: React.FC<
   });
   const [rpcUrl, setRpcUrl] = useState<string>();
 
+  const examples = [
+    "Send 0.1 SOL to",
+    "Swap 0.5 SOL to USDC",
+    "Swap 10 USDC to SOL",
+    "What is Solana?",
+  ];
+
+  const handleExampleClick = async (example: string) => {
+    setUserInput(example);
+    // Artificially delay to show the input being set
+    await new Promise(resolve => setTimeout(resolve, 100));
+    const newMessage = { role: "user", content: example };
+    setChatHistory([...chatHistory, newMessage]);
+    setUserInput("");
+    setIsGenerating(true);
+
+    try {
+      const response: ChatResponse = await sendMessageLexicon(example, config);
+      // ...rest of the response handling remains the same...
+      if (response.content) {
+        const gptMessage = { role: "assistant", content: response.content };
+        setChatHistory((prev) => [...prev, gptMessage]);
+      }
+
+      if (response.functionCall) {
+        const functionResult = await executeFunctionCall(
+          response.functionCall,
+          wallet,
+          config,
+          rpcUrl
+        );
+        const functionMessage = {
+          role: "assistant",
+          content: functionResult || `Function Called: ${response.functionCall.name}\nArguments: ${JSON.stringify(response.functionCall.arguments, null, 2)}`,
+        };
+        setChatHistory((prev) => [...prev, functionMessage]);
+      }
+    } catch (error) {
+      console.error("Error processing example:", error);
+      const errorMessage = {
+        role: "assistant",
+        content: "Sorry, there was an error processing your request.",
+      };
+      setChatHistory((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   useEffect(() => {
     const loadConfig = async () => {
       if (configId === "default") return;
@@ -175,20 +224,34 @@ const LexiconPopup: React.FC<
         ref={chatContainerRef}
         className="flex-1 overflow-y-auto bg-[#0a0a0a] space-y-4 p-4 chat-scrollbar"
       >
-        {/* Welcome Message - Now always visible */}
+        {/* Welcome Message with Examples */}
         <div className="flex items-start gap-3 animate-fade-in">
           <img
             src="/lexicon/lexicon-logo.png"
             alt="Lexicon AI"
-            className="h-8 w-8 rounded-full ring-2 ring-white/20"
+            className="h-8 w-8 rounded-full ring-2 ring-white/20 flex-shrink-0"
           />
-          <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none px-5 py-4 max-w-[85%] shadow-xl">
+          <div className="bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none px-5 py-4 w-[calc(100%-3rem)] shadow-xl">
             <p className="text-white font-medium">👋 Welcome to Lexicon AI</p>
             <p className="mt-2 text-white/70 text-sm leading-relaxed">
               I'm your specialized assistant for the Solana blockchain. Ask me
               anything about development, transactions, or exploring the
               ecosystem!
             </p>
+            <div className="mt-4">
+              <p className="text-white/70 text-sm mb-2">Try these examples:</p>
+              <div className="flex flex-col gap-2">
+                {examples.map((example, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handleExampleClick(example)}
+                    className="text-left text-sm px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition-colors duration-200 text-white/80 hover:text-white break-words whitespace-normal overflow-hidden"
+                  >
+                    {example}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -204,23 +267,24 @@ const LexiconPopup: React.FC<
               <img
                 src="/lexicon/lexicon-logo.png"
                 alt="Lexicon AI"
-                className="h-8 w-8 rounded-full ring-2 ring-white/20"
+                className="h-8 w-8 rounded-full ring-2 ring-white/20 flex-shrink-0"
               />
             )}
             <div
-              className={`relative max-w-[85%] shadow-lg overflow-hidden break-words ${
+              className={`relative shadow-lg ${
                 message.role === "user"
-                  ? "bg-gradient-to-r from-white/90 to-white/80 text-black rounded-2xl rounded-br-none"
-                  : "bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none"
+                  ? "bg-gradient-to-r from-white/90 to-white/80 text-black rounded-2xl rounded-br-none w-[calc(100%-3rem)]"
+                  : "bg-gradient-to-br from-[#1e1e1e] to-[#1a1a1a] text-white/90 rounded-2xl rounded-tl-none w-[calc(100%-3rem)]"
               } px-5 py-4 hover:shadow-xl transition-shadow duration-200`}
             >
               <ReactMarkdown
-                className={`prose prose-sm max-w-none break-words ${
+                className={`prose prose-sm max-w-none ${
                   message.role === "user" ? "prose-black" : "prose-invert"
-                }`}
+                } break-words`}
                 components={{
-                  p: ({children}) => <p className="whitespace-pre-wrap">{children}</p>,
-                  pre: ({children}) => <pre className="overflow-x-auto">{children}</pre>
+                  p: ({children}) => <p className="whitespace-pre-wrap break-words">{children}</p>,
+                  pre: ({children}) => <pre className="overflow-x-auto max-w-full">{children}</pre>,
+                  code: ({children}) => <code className="break-words whitespace-pre-wrap">{children}</code>
                 }}
               >
                 {message.content}
